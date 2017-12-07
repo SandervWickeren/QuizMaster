@@ -11,4 +11,5 @@
     <color name="colorLoginButton">#1565C0</color>
     <color name="colorTest">#1565C0</color>
     <color name="colorRegisterButton">#616161</color>
+    <color name="colorErrortext">#F44336</color>
 </resources>
