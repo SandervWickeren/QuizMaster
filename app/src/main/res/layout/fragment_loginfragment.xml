@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorLoginBack"
+    android:background="@color/colorMainBackground"
+    android:padding="20dp"
     tools:context="com.sandervwickeren.quizmaster.Loginfragment">
 
     <EditText
@@ -11,26 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorLoginLine"
+        android:background="@drawable/edittext_background"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:shadowColor="@color/colorLoginText"
-        android:textColor="@color/colorLoginText"
-        android:textColorHint="@color/colorLoginText" />
+        android:textColor="@color/colorTextDark"
+        android:textColorHint="@color/colorLightBackground" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/colorLoginLine"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColor="@color/colorLoginText"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/colorTextDark"
         android:textColorHint="@color/colorLoginText" />
 
     <TextView
@@ -52,9 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorRegisterButton"
+            android:background="@drawable/unimportant_button_with_shadow"
+            android:shadowColor="@color/colorUnimportantButtonShadow"
+            android:layout_marginEnd="5dp"
             android:text="Register"
-            android:textColor="@color/colorLoginText" />
+            android:textColor="@color/colorLightBackground" />
 
         <Button
             android:id="@+id/login_button"
@@ -62,9 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorLoginButton"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/button_with_shadow"
             android:text="Login"
-            android:textColor="@color/colorLoginText" />
+            android:textColor="@color/colorLightBackground" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.sandervwickeren.quizmaster;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -27,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // Actionbar design
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
 
         setContentView(R.layout.activity_main);
 
@@ -64,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                                     "Account succesfully created!", Toast.LENGTH_SHORT).show();
 
                             // Start next activity
+                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            MainActivity.this.startActivity(intent);
                         } else {
 
                             // Check failure
@@ -107,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
 
-
+                            Intent intent = new Intent(MainActivity.this, Home.class);
+                            MainActivity.this.startActivity(intent);
                             //updateUI(user);
                         } else {
                             // Check failure
