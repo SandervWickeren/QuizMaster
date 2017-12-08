@@ -195,7 +195,7 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             Questionfragment fragment = new Questionfragment();
             fragment.setArguments(bundle);
             FragmentTransaction ft = fm.beginTransaction();
-            ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            ft.setCustomAnimations(R.anim.slow_enter_from_right, R.anim.slow_exit_to_left, R.anim.slow_enter_from_left, R.anim.slow_exit_to_right);
             ft.replace(R.id.quest_fragment_container, fragment, "question");
             ft.commit();
         }
