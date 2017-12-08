@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:shadowColor="@color/colorUnimportantButtonShadow"
-            android:background="@drawable/unimportant_button_with_shadow"
+            android:background="@drawable/unimportant_button"
             android:text="Back"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorLightBackground" />
@@ -98,7 +98,7 @@
             android:layout_weight="1"
 
             android:text="Register"
-            android:background="@drawable/button_with_shadow"
+            android:background="@drawable/button"
             android:textColor="@color/colorLightBackground" />
     </LinearLayout>
 

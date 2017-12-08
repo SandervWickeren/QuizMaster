@@ -22,16 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:srcCompat="?attr/actionModeShareDrawable" />
+            app:srcCompat="@drawable/brain_logo" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Quiz Master"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/colorLightBackground" />
     </LinearLayout>
 
     <LinearLayout

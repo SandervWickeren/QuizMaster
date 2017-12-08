@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/colorMainBackground"
+    tools:context="com.sandervwickeren.quizmaster.Questionfragment">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/question_card_background"
+        android:layout_marginBottom="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="Which of these players won the NBA Rookie of the Year Award first?" />
+
+    <Button
+        android:id="@+id/answer_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/unimportant_button"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorLightBackground"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/answer_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/unimportant_button"
+        android:textColor="@color/colorLightBackground"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/answer_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/unimportant_button"
+        android:textColor="@color/colorLightBackground"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/answer_d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/unimportant_button"
+        android:textColor="@color/colorLightBackground"
+        android:text="Button" />
+
+</LinearLayout>

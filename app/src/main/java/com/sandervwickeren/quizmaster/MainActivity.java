@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fm = getSupportFragmentManager();
             Loginfragment fragment = new Loginfragment();
             FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragment_container, fragment, "categories");
+            ft.replace(R.id.fragment_container, fragment, "login");
             ft.commit();
         }
     }

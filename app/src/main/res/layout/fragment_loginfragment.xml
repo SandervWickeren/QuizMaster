@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/unimportant_button_with_shadow"
+            android:background="@drawable/unimportant_button"
             android:shadowColor="@color/colorUnimportantButtonShadow"
             android:layout_marginEnd="5dp"
             android:text="Register"
@@ -65,7 +65,7 @@
             android:layout_gravity="end"
             android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:background="@drawable/button_with_shadow"
+            android:background="@drawable/button"
             android:text="Login"
             android:textColor="@color/colorLightBackground" />
     </LinearLayout>
