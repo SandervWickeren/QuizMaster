@@ -36,7 +36,9 @@ public class Quiz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        volleyRequest("test", "test", "test");
+        if (savedInstanceState == null) {
+            volleyRequest("test", "test", "test");
+        }
     }
 
 
@@ -45,7 +47,8 @@ public class Quiz extends AppCompatActivity {
         // Generate information for fragment
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("questions", questions);
-        bundle.putInt("current", 1);
+        bundle.putInt("current", 0);
+        bundle.putInt("amount", 4);
 
         FragmentManager fm = getSupportFragmentManager();
         Questionfragment fragment = new Questionfragment();
@@ -62,7 +65,7 @@ public class Quiz extends AppCompatActivity {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        url = "https://opentdb.com/api.php?amount=2&type=multiple";
+        url = "https://opentdb.com/api.php?amount=4&type=multiple";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -75,8 +78,7 @@ public class Quiz extends AppCompatActivity {
 
                         // Put all information from jasonarray into list.
                         JSONArray resp = parseJason(response, "results");
-                        Toast.makeText(Quiz.this,
-                                resp.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Quiz.this,  resp.toString(), Toast.LENGTH_LONG).show();
 
                         // Create question list
                         ArrayList<String> questions = new ArrayList<>();
@@ -86,8 +88,7 @@ public class Quiz extends AppCompatActivity {
                             for (int i = 0; i < resp.length(); i++) {
                                 try {
                                     questions.add(resp.getString(i));
-                                    Toast.makeText(Quiz.this,
-                                            resp.getString(i), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(Quiz.this, resp.getString(i), Toast.LENGTH_LONG).show();
 
                                 } catch (Exception e) {
 
