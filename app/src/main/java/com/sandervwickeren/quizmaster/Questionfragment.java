@@ -85,7 +85,7 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             button.setBackgroundResource(R.drawable.button);
 
             // Next question, update score
-            nextQuestion();
+            nextQuestion(100);
 
         } else {
             // Update visually red
@@ -109,7 +109,7 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             }
 
             // Next question, update score
-            nextQuestion();
+            nextQuestion(0);
         }
     }
 
@@ -174,34 +174,36 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
         answer_d.setText(shuffled.get(3));
     }
 
-    public void nextQuestion() {
+    public void nextQuestion(int Score) {
         // Get bundle information
         Bundle old_bundle = this.getArguments();
 
+        // Make new bundle
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("questions", old_bundle.getStringArrayList("questions"));
+        bundle.putInt("current", old_bundle.getInt("current") + 1);
+        bundle.putInt("amount", old_bundle.getInt("amount"));
+        bundle.putInt("score", old_bundle.getInt("score") + Score);
+
         // Check if last question is reached
         if (Objects.equals(old_bundle.getInt("amount"), old_bundle.getInt("current") + 1)) {
-
+            Scorefragment fragment = new Scorefragment();
+            nextFragment(fragment, bundle);
             // Go to finish activity
         } else {
-
-            // Make new bundle
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("questions", old_bundle.getStringArrayList("questions"));
-            bundle.putInt("current", old_bundle.getInt("current") + 1);
-            bundle.putInt("amount", old_bundle.getInt("amount"));
-
             // Inflate new fragment
-            FragmentManager fm = getActivity().getSupportFragmentManager();
             Questionfragment fragment = new Questionfragment();
-            fragment.setArguments(bundle);
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.setCustomAnimations(R.anim.slow_enter_from_right, R.anim.slow_exit_to_left, R.anim.slow_enter_from_left, R.anim.slow_exit_to_right);
-            ft.replace(R.id.quest_fragment_container, fragment, "question");
-            ft.commit();
+            nextFragment(fragment, bundle);
         }
+    }
 
-
-
+    public void nextFragment(Fragment fragment, Bundle bundle) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fragment.setArguments(bundle);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.slow_enter_from_right, R.anim.slow_exit_to_left, R.anim.slow_enter_from_left, R.anim.slow_exit_to_right);
+        ft.replace(R.id.quest_fragment_container, fragment, fragment.getClass().getName());
+        ft.commit();
     }
 
 

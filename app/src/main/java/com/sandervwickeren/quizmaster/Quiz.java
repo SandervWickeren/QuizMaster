@@ -49,6 +49,7 @@ public class Quiz extends AppCompatActivity {
         bundle.putStringArrayList("questions", questions);
         bundle.putInt("current", 0);
         bundle.putInt("amount", 4);
+        bundle.putInt("score", 0);
 
         FragmentManager fm = getSupportFragmentManager();
         Questionfragment fragment = new Questionfragment();

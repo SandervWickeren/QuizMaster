@@ -3,13 +3,18 @@ package com.sandervwickeren.quizmaster;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,33 +25,47 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    BottomNavigationView bottomNavigationView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Actionbar design
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+
 
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
 
-        if (savedInstanceState == null) {
-            FragmentManager fm = getSupportFragmentManager();
-            Loginfragment fragment = new Loginfragment();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragment_container, fragment, "login");
-            ft.commit();
-        }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+
+        // Set onclicklistener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new navigationClicks());
+
+
+        // Launch the middle fragment
+        //Homefragment fragment = new Homefragment();
+        //replaceFragment(fragment);
+
+
+
+        // Set standard selected item, to "play".
+        bottomNavigationView.setSelectedItemId(R.id.navigation_play);
+
+        // Set backstack listener
+        getSupportFragmentManager().addOnBackStackChangedListener(new backstackListener());
+
     }
 
     @Override
@@ -56,6 +75,26 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
     }
+
+    private void replaceFragment (Fragment fragment) {
+        // Retrieved from:
+        // https://stackoverflow.com/questions/18305945/how-to-resume-fragment-from-backstack-if-exists
+        // Checks if fragment already active before making a new instance of the fragment.
+        String backStateName = fragment.getClass().getName();
+        String fragmentTag = backStateName;
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) { //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_container, fragment, fragmentTag);
+            ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+    }
+
 
     public void createUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -80,19 +119,19 @@ public class MainActivity extends AppCompatActivity {
                                 throw task.getException();
 
                                 // Email already in use.
-                            }catch (FirebaseAuthUserCollisionException e) {
+                            } catch (FirebaseAuthUserCollisionException e) {
                                 Toast.makeText(MainActivity.this,
                                         "The entered email is already used. Please use another email",
                                         Toast.LENGTH_SHORT).show();
 
                                 // Network problems
-                            }catch (FirebaseNetworkException e) {
+                            } catch (FirebaseNetworkException e) {
                                 Toast.makeText(MainActivity.this,
                                         "Can't make a connection to the server.",
                                         Toast.LENGTH_SHORT).show();
 
                                 // Other error
-                            }catch (Exception e) {
+                            } catch (Exception e) {
                                 Toast.makeText(MainActivity.this,
                                         "An error occured, please try it again.",
                                         Toast.LENGTH_SHORT).show();
@@ -102,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void logIn(View view, String email, String password){
+    public void logIn(View view, String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -125,20 +164,17 @@ public class MainActivity extends AppCompatActivity {
                                 throw task.getException();
 
                                 // Network problems
-                            }catch (FirebaseNetworkException e) {
+                            } catch (FirebaseNetworkException e) {
                                 Toast.makeText(MainActivity.this,
                                         "Can't make a connection to the server.",
                                         Toast.LENGTH_SHORT).show();
 
                                 // Other error
-                            }catch (Exception e) {
+                            } catch (Exception e) {
                                 Toast.makeText(MainActivity.this,
                                         "Please enter valid credentials.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
-
-
 
 
                             // If sign in fails, display a message to the user.
@@ -153,5 +189,70 @@ public class MainActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+    private void updateNavigation (Fragment fragment) {
+        String name = fragment.getClass().getName();
+
+        // Get view
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+
+        // Change selected item based on current fragment
+        if (Objects.equals(name, Homefragment.class.getName())) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_play);
+        }
+        else if (Objects.equals(name, Loginfragment.class.getName())) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
+        }
+    }
+
+    private class backstackListener implements FragmentManager.OnBackStackChangedListener {
+        @Override
+        public void onBackStackChanged() {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (fragment != null){
+                //updateNavigation(fragment);
+            }
+
+            // If backstack is empty it should close the app
+            int backstackCount = getSupportFragmentManager().getBackStackEntryCount();
+            if (backstackCount == 0) {
+                MainActivity.this.finish();
+            }
+
+        }
+    }
+
+    private class navigationClicks implements BottomNavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            // Get id
+            int id = item.getItemId();
+
+            // Get current selected id
+            BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+            int selected_id = bottomNavigationView.getSelectedItemId();
+
+            // Check if already selected
+            if (!(Objects.equals(id, selected_id))) {
+
+                //ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in);
+
+
+                // Launch correct fragment
+                if (id == R.id.navigation_play) {
+                    Homefragment fragment = new Homefragment();
+                    replaceFragment(fragment);
+
+                } else if (id == R.id.navigation_highscore) {
+
+                } else if (id == R.id.navigation_profile) {
+                    Loginfragment fragment = new Loginfragment();
+                    replaceFragment(fragment);
+                }
+            }
+            // Visually show the selected item;
+            return true;
+        }
     }
 }
