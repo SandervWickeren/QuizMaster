@@ -76,6 +76,9 @@ public class Highscoresfragment extends Fragment {
                     // Set list adapter
                     HighscoreListAdapter adapter = new HighscoreListAdapter(getContext(), scores);
                     highscores.setAdapter(adapter);
+
+                    // Remove load icon
+                    getView().findViewById(R.id.loadingHighscores).setVisibility(View.GONE);
                 } catch (Exception e) {
                     Log.d("Highscore Error", "fillListview:Couldn't do it.");
                 }

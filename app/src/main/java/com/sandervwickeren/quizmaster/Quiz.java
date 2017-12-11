@@ -50,7 +50,7 @@ public class Quiz extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("questions", questions);
         bundle.putInt("current", 0);
-        bundle.putInt("amount", 4);
+        bundle.putInt("amount", 8);
         bundle.putInt("score", 0);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -68,7 +68,7 @@ public class Quiz extends AppCompatActivity {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        url = "https://opentdb.com/api.php?amount=4&type=multiple";
+        url = "https://opentdb.com/api.php?amount=8&type=multiple";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -98,6 +98,9 @@ public class Quiz extends AppCompatActivity {
 
                                 }
                             }
+                            // End progressbar
+                            findViewById(R.id.loadingProcess).setVisibility(View.GONE);
+
                             // Start quiz
                             startQuiz(questions);
 

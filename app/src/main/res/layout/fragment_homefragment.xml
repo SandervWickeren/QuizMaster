@@ -3,41 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     android:background="@color/colorMainBackground">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:padding="20dp"
-        android:orientation="vertical">
 
-        <Button
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorLightBackground"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"
+        android:text="Rules of the game" />
+
+    <TextView
+        android:id="@+id/rules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/colorTextDark"
+        android:singleLine="false"
+        android:text="@string/rules" />
+
+
+    <Button
             android:id="@+id/start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
             android:textColor="@color/colorLightBackground"
             android:layout_marginBottom="10dp"
-            android:text="Start" />
+            android:text="Start game" />
 
-        <Button
-            android:id="@+id/highscore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorLightBackground"
-            android:background="@drawable/button"
-            android:text="Highscores" />
-
-        <Button
-            android:id="@+id/quit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorLightBackground"
-            android:background="@drawable/unimportant_button"
-            android:text="Quit" />
-    </LinearLayout>
 
 </LinearLayout>
 

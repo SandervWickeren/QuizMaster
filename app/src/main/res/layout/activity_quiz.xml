@@ -8,6 +8,19 @@
     android:background="@color/colorMainBackground"
     tools:context="com.sandervwickeren.quizmaster.Quiz">
 
+    <RelativeLayout
+        android:id="@+id/loadingProcess"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
+
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/quest_fragment_container"

@@ -167,11 +167,11 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
         answer_c.setOnClickListener(this);
         answer_d.setOnClickListener(this);
 
-        // Set button text
-        answer_a.setText(shuffled.get(0));
-        answer_b.setText(shuffled.get(1));
-        answer_c.setText(shuffled.get(2));
-        answer_d.setText(shuffled.get(3));
+        // Set button text and fix html encoding
+        answer_a.setText(Html.fromHtml(shuffled.get(0)));
+        answer_b.setText(Html.fromHtml(shuffled.get(1)));
+        answer_c.setText(Html.fromHtml(shuffled.get(2)));
+        answer_d.setText(Html.fromHtml(shuffled.get(3)));
     }
 
     public void nextQuestion(int Score) {
