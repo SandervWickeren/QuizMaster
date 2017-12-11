@@ -31,7 +31,7 @@ public class Homefragment extends Fragment {
         public void onClick(View view) {
             Intent intent = new Intent(getContext(), Quiz.class);
             getActivity().startActivity(intent);
-            getActivity().finish();
+            //getActivity().finish();
         }
     }
 

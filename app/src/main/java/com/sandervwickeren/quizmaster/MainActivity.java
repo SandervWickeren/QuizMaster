@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -31,6 +33,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth.AuthStateListener authListener;
     BottomNavigationView bottomNavigationView;
 
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
@@ -73,10 +78,18 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            Toast.makeText(MainActivity.this,
+                    "Logged in", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this,
+                    "Not Logged in", Toast.LENGTH_SHORT).show();
+        }
         //updateUI(currentUser);
     }
 
-    private void replaceFragment (Fragment fragment) {
+    public void replaceFragment (Fragment fragment) {
         // Retrieved from:
         // https://stackoverflow.com/questions/18305945/how-to-resume-fragment-from-backstack-if-exists
         // Checks if fragment already active before making a new instance of the fragment.
@@ -96,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void createUser(String email, String password) {
+    public void createUser(final String email, String password, final String username) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -109,9 +122,14 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this,
                                     "Account succesfully created!", Toast.LENGTH_SHORT).show();
 
-                            // Start next activity
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            MainActivity.this.startActivity(intent);
+                            // Add name to user
+                            User newUser = new User(username, email);
+                            String userID = "as";
+                            mDatabase.child("users").child(user.getUid()).setValue(newUser);
+
+                            // Navigate back to start
+                            Homefragment fragment = new Homefragment();
+                            replaceFragment(fragment);
                         } else {
 
                             // Check failure
@@ -155,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            MainActivity.this.startActivity(intent);
+                            Profilefragment fragment = new Profilefragment();
+                            replaceFragment(fragment);
                             //updateUI(user);
                         } else {
                             // Check failure
@@ -190,6 +208,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+
     private void updateNavigation (Fragment fragment) {
         String name = fragment.getClass().getName();
 
@@ -247,8 +269,14 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.navigation_highscore) {
 
                 } else if (id == R.id.navigation_profile) {
-                    Loginfragment fragment = new Loginfragment();
-                    replaceFragment(fragment);
+                    if (mAuth.getCurrentUser() == null) {
+                        Loginfragment fragment = new Loginfragment();
+                        replaceFragment(fragment);
+                    } else {
+                        Profilefragment fragment = new Profilefragment();
+                        replaceFragment(fragment);
+                    }
+
                 }
             }
             // Visually show the selected item;

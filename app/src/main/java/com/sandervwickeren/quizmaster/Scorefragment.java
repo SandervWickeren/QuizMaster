@@ -14,8 +14,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class Scorefragment extends Fragment implements View.OnClickListener {
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private FirebaseUser currentUser;
+    private String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +48,13 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getValues(this.getArguments());
+        // Get instances
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        // Generating layout
+        genLayout(this.getArguments());
     }
 
     @Override
@@ -53,20 +72,49 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+    public void getNameAndSave(final Integer score) {
+        // Check if logged in
+        if (currentUser != null) {
 
-    public void getValues(Bundle bundle) {
+            // Add listener for single event to prevent infinite looping.
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    // Get username
+                    User user = dataSnapshot.child("users").child(currentUser.getUid()).getValue(User.class);
+                    username = user.name;
+
+                    // Make instance of score
+                    Score newScore = new Score(username, score);
+
+                    // Get new post key
+                    String newKey = mDatabase.child("scores").push().getKey();
+
+                    // Save score to db
+                    mDatabase.child("scores").child(newKey).setValue(newScore);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(),
+                    "Not logged in",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void genLayout(Bundle bundle) {
         TextView score = getView().findViewById(R.id.score);
         int finalscore = bundle.getInt("score");
 
+        // Set score
         score.setText(Integer.toString(finalscore));
-    }
 
-    public void nextFragment(Fragment fragment) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.slow_enter_from_right, R.anim.slow_exit_to_left, R.anim.slow_enter_from_left, R.anim.slow_exit_to_right);
-        ft.replace(R.id.quest_fragment_container, fragment, fragment.getClass().getName());
-        ft.commit();
+        // Save score
+        getNameAndSave(finalscore);
     }
-
 }

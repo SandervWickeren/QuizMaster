@@ -7,6 +7,29 @@
     android:background="@color/colorMainBackground"
     tools:context="com.sandervwickeren.quizmaster.Registerfragment">
 
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="10dp"
+        android:inputType="textPersonName"
+        android:hint="Username"
+        android:textColor="@color/colorTextDark"
+        android:textColorHint="@color/colorLoginText"/>
+
+    <TextView
+        android:id="@+id/error_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="10dp"
+        android:text="Your username should have atleast one character!"
+        android:textColor="@color/colorErrortext"/>
+
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
@@ -21,12 +44,12 @@
         android:textColorHint="@color/colorLoginText" />
 
     <TextView
-        android:id="@+id/error_user"
+        android:id="@+id/error_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_marginBottom="10dp"
-        android:text="Your name should have atleast one character!"
+        android:text="Your email should have atleast 5 characters!"
         android:textColor="@color/colorErrortext"/>
 
     <EditText
