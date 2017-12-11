@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Profilefragment extends Fragment implements View.OnClickListener {
 
-    Button logOut;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +25,6 @@ public class Profilefragment extends Fragment implements View.OnClickListener {
         Button logOut = v.findViewById(R.id.logOut);
         logOut.setOnClickListener(this);
 
-
         return v;
     }
 
@@ -36,6 +34,10 @@ public class Profilefragment extends Fragment implements View.OnClickListener {
             case R.id.logOut:
                 // Logout
                 FirebaseAuth.getInstance().signOut();
+
+                // Pop fragment from backstack to prevent going back illegally
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack(this.getClass().getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                 // Launch Login fragment
                 Loginfragment fragment = new Loginfragment();

@@ -21,8 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home" />
-        <activity android:name=".Quiz" />
+        <activity android:name=".Quiz" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

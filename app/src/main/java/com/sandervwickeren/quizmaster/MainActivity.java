@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Launch the middle fragment
-        //Homefragment fragment = new Homefragment();
-        //replaceFragment(fragment);
+        Homefragment fragment = new Homefragment();
+        replaceFragment(fragment);
 
 
 
         // Set standard selected item, to "play".
-        bottomNavigationView.setSelectedItemId(R.id.navigation_play);
+        //bottomNavigationView.setSelectedItemId(R.id.navigation_play);
 
         // Set backstack listener
         getSupportFragmentManager().addOnBackStackChangedListener(new backstackListener());
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             ft.commit();
         }
     }
-
 
     public void createUser(final String email, String password, final String username) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -171,8 +170,10 @@ public class MainActivity extends AppCompatActivity {
                                     "Succesfully logged in",
                                     Toast.LENGTH_SHORT).show();
 
+                            // Get current user
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            // Launch profile fragment
                             Profilefragment fragment = new Profilefragment();
                             replaceFragment(fragment);
                             //updateUI(user);
@@ -213,18 +214,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateNavigation (Fragment fragment) {
+        // Get fragment clas name
         String name = fragment.getClass().getName();
 
         // Get view
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
+        // Remove Listener to prevent infinite looping.
+        bottomNavigationView.setOnNavigationItemSelectedListener(null);
+
         // Change selected item based on current fragment
         if (Objects.equals(name, Homefragment.class.getName())) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_play);
         }
-        else if (Objects.equals(name, Loginfragment.class.getName())) {
+        else if (Objects.equals(name, Highscoresfragment.class.getName())) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_highscore);
+        }
+        // All other fragments are from the profile page
+        else {
             bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
         }
+
+        // Set the listener back
+        bottomNavigationView.setOnNavigationItemSelectedListener(new navigationClicks());
     }
 
     private class backstackListener implements FragmentManager.OnBackStackChangedListener {
@@ -232,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBackStackChanged() {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (fragment != null){
-                //updateNavigation(fragment);
+                updateNavigation(fragment);
             }
 
             // If backstack is empty it should close the app
@@ -267,6 +279,8 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(fragment);
 
                 } else if (id == R.id.navigation_highscore) {
+                    Highscoresfragment fragment = new Highscoresfragment();
+                    replaceFragment(fragment);
 
                 } else if (id == R.id.navigation_profile) {
                     if (mAuth.getCurrentUser() == null) {

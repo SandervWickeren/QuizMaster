@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/colorMainBackground"
+    tools:context="com.sandervwickeren.quizmaster.Highscoresfragment">
+
+    <TextView
+        android:id="@+id/highscoreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/colorLightBackground"
+        android:textSize="40sp"
+        android:text="Highscores" />
+
+    <ListView
+        android:id="@+id/highscoreList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/ownHighscore"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:textColor="@color/colorLightBackground"
+        android:textSize="30sp"
+        android:text="Personal Best" />
+
+    <ListView
+        android:id="@+id/ownHighscoreList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

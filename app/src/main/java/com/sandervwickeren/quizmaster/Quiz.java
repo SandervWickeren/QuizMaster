@@ -14,8 +14,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -110,6 +112,11 @@ public class Quiz extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(Quiz.this,
                         error.toString(), Toast.LENGTH_SHORT).show();
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(Quiz.this,
+                            "Sorry, we couldn't reach our questions.", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
