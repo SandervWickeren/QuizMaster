@@ -1,26 +1,23 @@
 package com.sandervwickeren.quizmaster;
 
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,6 +34,12 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
 
     // Saves position of correct answer.
     int cor_answer_pos;
+
+    // Holds timer
+    CountDownTimer timer;
+
+    // Hold time
+    long secondsLeft;
 
 
     @Override
@@ -55,6 +58,14 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
         answers.clear();
         getValues(this.getArguments());
 
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // Stop timer to prevent background actions
+        timer.cancel();
+        timer = null;
     }
 
     @Override
@@ -84,12 +95,23 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             // Update visually green
             button.setBackgroundResource(R.drawable.button);
 
+            // Get score
+            Integer finalScore = calculateScore(secondsLeft, Boolean.TRUE);
+
             // Next question, update score
-            nextQuestion(100);
+            nextQuestion(finalScore);
 
         } else {
-            // Update visually red
-            button.setBackgroundResource(R.drawable.red_button);
+            // Update visually red if possible
+            try {
+                button.setBackgroundResource(R.drawable.red_button);
+            } catch (Exception e) {
+                Log.d("TimerError", e.toString());
+            }
+
+            // Vibrate phone
+            Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(100);
 
             // Mark the correct answer
             if (cor_answer_pos == 0) {
@@ -107,9 +129,11 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
                 Button ans_d = getView().findViewById(R.id.answer_d);
                 ans_d.setBackgroundResource(R.drawable.button);
             }
+            // Get score
+            Integer finalScore = calculateScore(secondsLeft, Boolean.FALSE);
 
             // Next question, update score
-            nextQuestion(0);
+            nextQuestion(finalScore);
         }
     }
 
@@ -172,11 +196,70 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
         answer_b.setText(Html.fromHtml(shuffled.get(1)));
         answer_c.setText(Html.fromHtml(shuffled.get(2)));
         answer_d.setText(Html.fromHtml(shuffled.get(3)));
+
+        startTimer();
+    }
+
+    public void startTimer() {
+        try {
+            // Get Actionbar view
+            android.support.v7.app.ActionBar actionBar = ((Quiz)getActivity()).getSupportActionBar();
+            View v = actionBar.getCustomView();
+            final TextView timerText = v.findViewById(R.id.time);
+
+            // Replace original color for new question
+            timerText.setTextColor(getResources().getColor(R.color.colorLightBackground));
+
+            // Create new timer and start
+            timer = new CountDownTimer(30000, 1000) {
+                public void onTick(long millUntilFinished) {
+                    secondsLeft = millUntilFinished / 1000;
+                    String timeLeft = "'" + String.valueOf(secondsLeft);
+                    timerText.setText(timeLeft);
+
+                    // Change color if almost finished
+                    if (millUntilFinished / 1000 < 10) {
+                        timerText.setTextColor(getResources().getColor(R.color.colorErrortext));
+                    }
+                }
+                public void onFinish() {
+
+                    // When finished it should show the correct answer
+                    Button button = null;
+                    checkAnswer(button, 0);
+                }
+            }.start();
+
+        } catch (Exception e) {
+            Log.d("TimerError", e.toString());
+        }
+    }
+    public int calculateScore(long time, Boolean correct) {
+        if (!correct) {
+            // Prevent quick quessing
+            if (time > 28) {
+                long score = - 50 - time;
+                return (int) score;
+            } else {
+                long score = - time;
+                return (int) score;
+            }
+        } else {
+
+            // Quicker correctness results in higher score.
+            long score = 100 + ((30 - time) * 5);
+            return (int) score;
+        }
     }
 
     public void nextQuestion(int Score) {
         // Get bundle information
         Bundle old_bundle = this.getArguments();
+
+        // Score shouldn't go below 0
+        if (Score < 0) {
+            Score = 0;
+        }
 
         // Make new bundle
         Bundle bundle = new Bundle();
@@ -187,9 +270,11 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
 
         // Check if last question is reached
         if (Objects.equals(old_bundle.getInt("amount"), old_bundle.getInt("current") + 1)) {
+
+            // Go to score fragment
             Scorefragment fragment = new Scorefragment();
             nextFragment(fragment, bundle);
-            // Go to finish activity
+
         } else {
             // Inflate new fragment
             Questionfragment fragment = new Questionfragment();

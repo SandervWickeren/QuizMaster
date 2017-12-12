@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class Scorefragment extends Fragment implements View.OnClickListener {
@@ -52,6 +59,12 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        // Remove seconds display
+        android.support.v7.app.ActionBar actionBar = ((Quiz)getActivity()).getSupportActionBar();
+        View v = actionBar.getCustomView();
+        TextView timerText = v.findViewById(R.id.time);
+        timerText.setVisibility(View.INVISIBLE);
 
         // Generating layout
         genLayout(this.getArguments());
@@ -107,6 +120,67 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void getScores(final Integer achievedScore) {
+        Query query = mDatabase.child("scores").orderByChild("score").limitToLast(100);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<Score> scores = new ArrayList<>();
+
+                /*Convert every row to instance of score class and add them to
+                a list. */
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Score score = postSnapshot.getValue(Score.class);
+                    scores.add(score);
+                }
+                // Gen layout listview
+                try {
+                    ListView highscores = getView().findViewById(R.id.scorelist);
+                    // Clear list (necessary when updates occur to recreate list.)
+                    highscores.setAdapter(null);
+
+                    // Reverse list to get heighest at the top.
+                    Collections.reverse(scores);
+
+                    // Check if achieved score in top 100
+                    for (Score score: scores){
+                        if (score.score <= achievedScore) {
+                            Integer position = scores.indexOf(score);
+
+                            // Set position
+                            TextView pos = getView().findViewById(R.id.position);
+                            pos.setText(String.valueOf(position + 1));
+
+                            // Quit looping
+                            break;
+                        }
+                    }
+                    // Select top 5
+                    ArrayList<Score> sliced = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        sliced.add(scores.get(i));
+                    }
+
+                    // Set list adapter with the top 5
+                    HighscoreListAdapter adapter = new HighscoreListAdapter(getContext(),
+                            sliced);
+                    highscores.setAdapter(adapter);
+
+                    // Remove load icon
+                    getView().findViewById(R.id.loadingHighscores).setVisibility(View.GONE);
+                } catch (Exception e) {
+                    Log.d("Highscore Error", "fillListview:Couldn't do it.");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void genLayout(Bundle bundle) {
         TextView score = getView().findViewById(R.id.score);
         int finalscore = bundle.getInt("score");
@@ -116,5 +190,8 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
 
         // Save score
         getNameAndSave(finalscore);
+
+        // Fill highscore list and position
+        getScores(finalscore);
     }
 }

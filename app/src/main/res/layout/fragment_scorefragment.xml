@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/compliment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.25"
         android:textSize="40sp"
         android:textColor="@color/colorLightBackground"
         android:text="Well played!" />
@@ -18,7 +19,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -66,29 +68,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-18dp"
-                android:text="12th"
+                android:text="100"
                 android:textColor="@color/colorLightBackground"
                 android:textSize="60sp" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorLightBackground"
-        android:text="Feedback about login" />
-
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/scorelist"/>
+        android:layout_weight="1.2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Highscores"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="10dp"
+            android:textSize="30sp"
+            android:textColor="@color/colorLightBackground"/>
+
+        <RelativeLayout
+            android:id="@+id/loadingHighscores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/scorelist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 

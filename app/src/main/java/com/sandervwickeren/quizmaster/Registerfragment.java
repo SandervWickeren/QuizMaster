@@ -20,6 +20,9 @@ import java.util.Objects;
 
 public class Registerfragment extends Fragment {
 
+    // Global error report:
+    Integer noErrors = 1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,9 +63,13 @@ public class Registerfragment extends Fragment {
             TextView error_pass = getView().findViewById(R.id.error_pass);
             TextView error_pass2 = getView().findViewById(R.id.error_pass2);
 
+            // Reset global error
+            noErrors = 1;
+
             // Check input length username
             if (username.getText().length() == 0) {
                 error_username.setVisibility(View.VISIBLE);
+                noErrors = 0;
             } else {
                 error_username.setVisibility(View.GONE);
             }
@@ -70,6 +77,7 @@ public class Registerfragment extends Fragment {
             // Check input length email
             if (email.getText().length() < 5) {
                 error_email.setVisibility(View.VISIBLE);
+                noErrors = 0;
             } else {
                 error_email.setVisibility(View.GONE);
             }
@@ -77,6 +85,7 @@ public class Registerfragment extends Fragment {
             // Check input length passwords
             if (pass.getText().length() < 6){
                 error_pass.setVisibility(View.VISIBLE);
+                noErrors = 0;
             } else {
                 error_pass.setVisibility(View.GONE);
             }
@@ -88,13 +97,17 @@ public class Registerfragment extends Fragment {
             // Validate passwords
             if (!(Objects.equals(pass.getText().toString(), repeatPass.getText().toString()))) {
                 error_pass2.setVisibility(View.VISIBLE);
+                noErrors = 0;
             } else {
                 error_pass2.setVisibility(View.GONE);
             }
 
-            // Create account
-            ((MainActivity)getActivity()).createUser(email.getText().toString(),
-                    repeatPass.getText().toString(), username.getText().toString());
+            // Create account if no errors
+            if (noErrors == 1) {
+                ((MainActivity)getActivity()).createUser(email.getText().toString(),
+                        repeatPass.getText().toString(), username.getText().toString());
+                ((MainActivity)getActivity()).hideKeyboard();
+            }
         }
 
     }

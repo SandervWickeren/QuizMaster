@@ -1,5 +1,6 @@
 package com.sandervwickeren.quizmaster;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,9 @@ public class Quiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.quiz_actionbar_layout);
 
         if (savedInstanceState == null) {
             volleyRequest("test", "test", "test");
@@ -113,12 +117,20 @@ public class Quiz extends AppCompatActivity {
                 }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Quiz.this,
-                        error.toString(), Toast.LENGTH_SHORT).show();
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    // Show error
                     Toast.makeText(Quiz.this,
-                            "Sorry, we couldn't reach our questions.", Toast.LENGTH_SHORT).show();
+                            "Can't reach the questions, please check your connection.", Toast.LENGTH_LONG).show();
+
+                    // Return to base activity
+                    Intent homeIntent = new Intent(Quiz.this, MainActivity.class);
+                    Quiz.this.startActivity(homeIntent);
+                    Quiz.this.finish();
+
+                } else {
+                    Toast.makeText(Quiz.this,
+                            error.toString(), Toast.LENGTH_SHORT).show();
                 }
 
             }

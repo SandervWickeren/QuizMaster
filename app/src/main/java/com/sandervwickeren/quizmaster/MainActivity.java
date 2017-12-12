@@ -1,6 +1,7 @@
 package com.sandervwickeren.quizmaster;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,10 +11,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -44,8 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
         // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Actionbar design
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        //getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        //Toolbar toolbar = findViewById(R.id.homeToolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("Quiz Master");
+        //getSupportActionBar().setIcon(getDrawable(R.drawable.quiz_master));
 
 
         setContentView(R.layout.activity_main);
@@ -79,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
+        /*if (currentUser != null) {
             Toast.makeText(MainActivity.this,
                     "Logged in", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(MainActivity.this,
                     "Not Logged in", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         //updateUI(currentUser);
     }
 
@@ -178,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                             replaceFragment(fragment);
                             //updateUI(user);
                         } else {
-                            // Check failure
+                            // Check failure and give feedback
                             try {
                                 throw task.getException();
 
@@ -194,20 +201,21 @@ public class MainActivity extends AppCompatActivity {
                                         "Please enter valid credentials.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
-
-                            // If sign in fails, display a message to the user.
+                            // Log Error
                             Log.w("email", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, task.getException().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+
                         }
 
-                        // ...
                     }
                 });
+    }
+
+    public void hideKeyboard() {
+        View v = this.getCurrentFocus();
+        if (v != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 
 

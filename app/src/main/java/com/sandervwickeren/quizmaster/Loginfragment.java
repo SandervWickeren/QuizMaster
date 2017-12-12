@@ -1,6 +1,7 @@
 package com.sandervwickeren.quizmaster;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,9 +29,6 @@ public class Loginfragment extends Fragment {
 
         register.setOnClickListener(new Register_click());
         login.setOnClickListener(new Login_click());
-
-
-
 
         return v;
     }
@@ -62,12 +61,11 @@ public class Loginfragment extends Fragment {
             } else {
                 errorText.setVisibility(View.GONE);
                 ((MainActivity)getActivity()).logIn(view, email.getText().toString(), pass.getText().toString());
+                ((MainActivity)getActivity()).hideKeyboard();
+                }
             }
-
-
-
 
         }
     }
 
-}
+
