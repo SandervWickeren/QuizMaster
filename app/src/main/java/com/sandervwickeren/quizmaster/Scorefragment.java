@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+
 
 /***********************************************************************
  Fragment that shows up at the end of the game. It displays the score,
@@ -66,7 +62,7 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
         currentUser = mAuth.getCurrentUser();
 
         // Remove seconds display
-        android.support.v7.app.ActionBar actionBar = ((Quiz)getActivity()).getSupportActionBar();
+        android.support.v7.app.ActionBar actionBar = ((QuizActivity)getActivity()).getSupportActionBar();
         View v = actionBar.getCustomView();
         TextView timerText = v.findViewById(R.id.time);
         timerText.setVisibility(View.INVISIBLE);
@@ -79,7 +75,7 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.replay:
-                Intent replayIntent = new Intent(getActivity(), Quiz.class);
+                Intent replayIntent = new Intent(getActivity(), QuizActivity.class);
                 Scorefragment.this.startActivity(replayIntent);
                 getActivity().finish();
                 break;
@@ -119,9 +115,7 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
                 }
             });
         } else {
-            Toast.makeText(getActivity(),
-                    "Not logged in",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Not logged in", Toast.LENGTH_SHORT).show();
         }
     }
 

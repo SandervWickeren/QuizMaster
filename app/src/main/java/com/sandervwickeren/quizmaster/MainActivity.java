@@ -1,25 +1,20 @@
 package com.sandervwickeren.quizmaster;
 
+
 import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;
@@ -29,8 +24,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.Objects;
+
 
 /***********************************************************************
  Startup activity, show a bottomnavigationbar with profile, play and
@@ -51,59 +46,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // Actionbar design
+        // Set custom actionbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
-        //Toolbar toolbar = findViewById(R.id.homeToolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("Quiz Master");
-        //getSupportActionBar().setIcon(getDrawable(R.drawable.quiz_master));
-
-
         setContentView(R.layout.activity_main);
 
+        // Initialize firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
+        // Get bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
         // Set onclicklistener
         bottomNavigationView.setOnNavigationItemSelectedListener(new navigationClicks());
 
-
         // Launch the middle fragment
         Homefragment fragment = new Homefragment();
         replaceFragment(fragment);
-
-
-
-        // Set standard selected item, to "play".
-        //bottomNavigationView.setSelectedItemId(R.id.navigation_play);
 
         // Set backstack listener
         getSupportFragmentManager().addOnBackStackChangedListener(new backstackListener());
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        /*if (currentUser != null) {
-            Toast.makeText(MainActivity.this,
-                    "Logged in", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(MainActivity.this,
-                    "Not Logged in", Toast.LENGTH_SHORT).show();
-        }*/
-        //updateUI(currentUser);
-    }
-
     public void replaceFragment (Fragment fragment) {
-        // Retrieved from:
+        // Partially retrieved from:
         // https://stackoverflow.com/questions/18305945/how-to-resume-fragment-from-backstack-if-exists
         // Checks if fragment already active before making a new instance of the fragment.
         String backStateName = fragment.getClass().getName();
@@ -209,9 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             // Log Error
                             Log.w("email", "signInWithEmail:failure", task.getException());
-
                         }
-
                     }
                 });
     }
@@ -223,9 +189,6 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
-
-
-
 
     private void updateNavigation (Fragment fragment) {
         // Get fragment clas name
@@ -240,12 +203,11 @@ public class MainActivity extends AppCompatActivity {
         // Change selected item based on current fragment
         if (Objects.equals(name, Homefragment.class.getName())) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_play);
-        }
-        else if (Objects.equals(name, Highscoresfragment.class.getName())) {
+        } else if (Objects.equals(name, Highscoresfragment.class.getName())) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_highscore);
-        }
+
         // All other fragments are from the profile page
-        else {
+        } else {
             bottomNavigationView.setSelectedItemId(R.id.navigation_profile);
         }
 
@@ -257,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBackStackChanged() {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (fragment != null){
+            if (fragment != null) {
                 updateNavigation(fragment);
             }
 
@@ -283,9 +245,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Check if already selected
             if (!(Objects.equals(id, selected_id))) {
-
-                //ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in);
-
 
                 // Launch correct fragment
                 if (id == R.id.navigation_play) {

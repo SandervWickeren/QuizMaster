@@ -9,19 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 
 /***********************************************************************
@@ -66,6 +61,7 @@ public class Highscoresfragment extends Fragment {
                     Score score = postSnapshot.getValue(Score.class);
                     scores.add(score);
                 }
+
                 // Gen layout listview
                 try {
                     ListView highscores = getView().findViewById(R.id.highscoreList);

@@ -9,13 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
-
 import java.util.Objects;
+
 
 /***********************************************************************
  Fragment that handles the registration of users by using functions from
@@ -87,16 +82,12 @@ public class Registerfragment extends Fragment {
             }
 
             // Check input length passwords
-            if (pass.getText().length() < 6){
+            if (pass.getText().length() < 6) {
                 error_pass.setVisibility(View.VISIBLE);
                 noErrors = 0;
             } else {
                 error_pass.setVisibility(View.GONE);
             }
-
-            // Check match passwords
-            /*Toast.makeText(getActivity(), pass.getText().toString() , Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), repeatPass.getText().toString() , Toast.LENGTH_SHORT).show();*/
 
             // Validate passwords
             if (!(Objects.equals(pass.getText().toString(), repeatPass.getText().toString()))) {

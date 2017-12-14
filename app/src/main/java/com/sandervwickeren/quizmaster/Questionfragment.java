@@ -1,7 +1,7 @@
 package com.sandervwickeren.quizmaster;
 
 
-import android.app.ActionBar;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -21,12 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 
 /***********************************************************************
  Fragment that is used to show questions. Every new question is loaded
@@ -125,12 +124,10 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             } else if (cor_answer_pos == 1) {
                 Button ans_b = getView().findViewById(R.id.answer_b);
                 ans_b.setBackgroundResource(R.drawable.button);
-            }
-            else if (cor_answer_pos == 2) {
+            } else if (cor_answer_pos == 2) {
                 Button ans_c = getView().findViewById(R.id.answer_c);
                 ans_c.setBackgroundResource(R.drawable.button);
-            }
-            else if (cor_answer_pos == 3) {
+            } else if (cor_answer_pos == 3) {
                 Button ans_d = getView().findViewById(R.id.answer_d);
                 ans_d.setBackgroundResource(R.drawable.button);
             }
@@ -214,7 +211,7 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
     public void startTimer() {
         try {
             // Get Actionbar view
-            android.support.v7.app.ActionBar actionBar = ((Quiz)getActivity()).getSupportActionBar();
+            android.support.v7.app.ActionBar actionBar = ((QuizActivity)getActivity()).getSupportActionBar();
             View v = actionBar.getCustomView();
             final TextView timerText = v.findViewById(R.id.time);
 

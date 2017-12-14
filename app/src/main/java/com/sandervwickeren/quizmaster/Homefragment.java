@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 
 /***********************************************************************
  Fragment that show the rules of the games and from here the game
@@ -51,7 +51,7 @@ public class Homefragment extends Fragment {
                 LoginStateDialogfragment fragment = new LoginStateDialogfragment();
                 fragment.show(ft, "dialog");
             } else {
-                Intent intent = new Intent(getContext(), Quiz.class);
+                Intent intent = new Intent(getContext(), QuizActivity.class);
                 getActivity().startActivity(intent);
             }
         }

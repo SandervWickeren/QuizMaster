@@ -4,13 +4,12 @@ package com.sandervwickeren.quizmaster;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 
 /***********************************************************************
  Fragment that shows if a user is logged in. Contains a log out button

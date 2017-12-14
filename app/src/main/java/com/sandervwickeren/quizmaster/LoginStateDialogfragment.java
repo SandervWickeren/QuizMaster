@@ -4,11 +4,11 @@ package com.sandervwickeren.quizmaster;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 
 /***********************************************************************
  Dialogfragment that pops up to warn the user that he / she is not
@@ -16,7 +16,6 @@ import android.widget.Button;
 
  ***********************************************************************/
 public class LoginStateDialogfragment extends DialogFragment implements View.OnClickListener {
-
 
 
     @Override
@@ -44,7 +43,7 @@ public class LoginStateDialogfragment extends DialogFragment implements View.OnC
             case R.id.play:
                 // Start activity
                 getDialog().cancel();
-                Intent intent = new Intent(getContext(), Quiz.class);
+                Intent intent = new Intent(getContext(), QuizActivity.class);
                 getActivity().startActivity(intent);
                 break;
         }

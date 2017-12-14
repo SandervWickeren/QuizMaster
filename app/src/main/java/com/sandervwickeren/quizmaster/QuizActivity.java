@@ -2,19 +2,12 @@ package com.sandervwickeren.quizmaster;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
-
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,14 +15,11 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.Response;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
+
 /***********************************************************************
  Activity that holds the questionfragments. It prepares the game
  by retrieving the question from the opentDB API. After retrieving it
@@ -37,7 +27,7 @@ import java.util.Objects;
  one time in the quiz, it reduces bandwith.
 
  ***********************************************************************/
-public class Quiz extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity {
 
 
     @Override
@@ -85,13 +75,9 @@ public class Quiz extends AppCompatActivity {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        //test.setText("Response is: "+ response);
-                        //test.setText(pJason(response));
-
                         // Put all information from jasonarray into list.
                         JSONArray resp = parseJason(response, "results");
-                        //Toast.makeText(Quiz.this,  resp.toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(QuizActivity.this,  resp.toString(), Toast.LENGTH_LONG).show();
 
                         // Create question list
                         ArrayList<String> questions = new ArrayList<>();
@@ -101,10 +87,9 @@ public class Quiz extends AppCompatActivity {
                             for (int i = 0; i < resp.length(); i++) {
                                 try {
                                     questions.add(resp.getString(i));
-                                    //Toast.makeText(Quiz.this, resp.getString(i), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(QuizActivity.this, resp.getString(i), Toast.LENGTH_LONG).show();
 
                                 } catch (Exception e) {
-
 
                                 }
                             }
@@ -113,12 +98,7 @@ public class Quiz extends AppCompatActivity {
 
                             // Start quiz
                             startQuiz(questions);
-
                         }
-
-
-
-
                     }
                 }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -126,16 +106,16 @@ public class Quiz extends AppCompatActivity {
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     // Show error
-                    Toast.makeText(Quiz.this,
+                    Toast.makeText(QuizActivity.this,
                             "Can't reach the questions, please check your connection.", Toast.LENGTH_LONG).show();
 
                     // Return to base activity
-                    Intent homeIntent = new Intent(Quiz.this, MainActivity.class);
-                    Quiz.this.startActivity(homeIntent);
-                    Quiz.this.finish();
+                    Intent homeIntent = new Intent(QuizActivity.this, MainActivity.class);
+                    QuizActivity.this.startActivity(homeIntent);
+                    QuizActivity.this.finish();
 
                 } else {
-                    Toast.makeText(Quiz.this,
+                    Toast.makeText(QuizActivity.this,
                             error.toString(), Toast.LENGTH_SHORT).show();
                 }
 

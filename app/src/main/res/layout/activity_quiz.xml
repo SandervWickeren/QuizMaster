@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorMainBackground"
-    tools:context="com.sandervwickeren.quizmaster.Quiz">
+    tools:context="com.sandervwickeren.quizmaster.QuizActivity">
 
     <RelativeLayout
         android:id="@+id/loadingProcess"
