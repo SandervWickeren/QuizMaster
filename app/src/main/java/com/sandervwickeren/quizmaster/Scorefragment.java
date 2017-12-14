@@ -29,7 +29,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/***********************************************************************
+ Fragment that shows up at the end of the game. It displays the score,
+ the position and the current top 5 scores. The user can choose to play
+ again or to go back to the Mainactivity / Home.
 
+ ***********************************************************************/
 public class Scorefragment extends Fragment implements View.OnClickListener {
 
     private FirebaseAuth mAuth;

@@ -30,7 +30,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+/***********************************************************************
+ Activity that holds the questionfragments. It prepares the game
+ by retrieving the question from the opentDB API. After retrieving it
+ parses it and sends it to the first questionfragment. By only requesting
+ one time in the quiz, it reduces bandwith.
 
+ ***********************************************************************/
 public class Quiz extends AppCompatActivity {
 
 

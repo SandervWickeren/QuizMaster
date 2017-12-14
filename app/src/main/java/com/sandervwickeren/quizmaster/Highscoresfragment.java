@@ -24,9 +24,11 @@ import java.util.Collections;
 import java.util.List;
 
 
-/**
- * A simple  subclass.
- */
+/***********************************************************************
+ Fragment that shows all highscores in a list using the
+ HighscoreListAdapter
+
+ ***********************************************************************/
 public class Highscoresfragment extends Fragment {
 
     private DatabaseReference mDatabase;

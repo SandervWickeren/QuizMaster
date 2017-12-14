@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/***********************************************************************
+ Dialogfragment that pops up to warn the user that he / she is not
+ logged in and therefore the score won't be saved to the database.
 
+ ***********************************************************************/
 public class LoginStateDialogfragment extends DialogFragment implements View.OnClickListener {
 
 

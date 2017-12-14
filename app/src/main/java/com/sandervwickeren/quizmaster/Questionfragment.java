@@ -28,7 +28,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-
+/***********************************************************************
+ Fragment that is used to show questions. Every new question is loaded
+ into this fragment, which will randomly shuffle the answers to a button.
+ And visually show information as: amount of questions to go, category and
+ the timer.
+ ***********************************************************************/
 public class Questionfragment extends Fragment implements View.OnClickListener {
 
     ArrayList<String> answers = new ArrayList<>();

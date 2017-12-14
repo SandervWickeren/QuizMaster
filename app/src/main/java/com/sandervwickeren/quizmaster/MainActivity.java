@@ -32,7 +32,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
+/***********************************************************************
+ Startup activity, show a bottomnavigationbar with profile, play and
+ highscores. It displays the fragments in the container and contains
+ functions that are important for all fragments to prevent code
+ duplication.
 
+ ***********************************************************************/
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

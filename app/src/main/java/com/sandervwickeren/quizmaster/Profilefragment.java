@@ -12,7 +12,11 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/***********************************************************************
+ Fragment that shows if a user is logged in. Contains a log out button
+ so users can log out also.
 
+ ***********************************************************************/
 public class Profilefragment extends Fragment implements View.OnClickListener {
 
 

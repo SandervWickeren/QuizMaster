@@ -1,5 +1,11 @@
 package com.sandervwickeren.quizmaster;
 
+/***********************************************************************
+ Used to correctly adapt information retrieved from the score class
+ into a listview.
+
+ ***********************************************************************/
+
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 
 class HighscoreListAdapter extends ArrayAdapter<Score> {
 

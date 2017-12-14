@@ -17,7 +17,11 @@ import org.w3c.dom.Text;
 
 import java.util.Objects;
 
+/***********************************************************************
+ Fragment that handles the registration of users by using functions from
+ the Mainactivity. It checks the input from the user to prevent errors.
 
+ ***********************************************************************/
 public class Registerfragment extends Fragment {
 
     // Global error report:

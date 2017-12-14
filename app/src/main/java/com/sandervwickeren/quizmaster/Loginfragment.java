@@ -14,7 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/***********************************************************************
+ Fragment that handles the logins.
 
+ ***********************************************************************/
 public class Loginfragment extends Fragment {
 
 

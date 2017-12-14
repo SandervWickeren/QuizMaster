@@ -12,7 +12,12 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/***********************************************************************
+ Fragment that show the rules of the games and from here the game
+ can be started. It visually shows if the user is logged in by the
+ color of the button.
 
+ ***********************************************************************/
 public class Homefragment extends Fragment {
 
 
