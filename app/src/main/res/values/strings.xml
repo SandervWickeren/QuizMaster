@@ -9,6 +9,33 @@
 
     <string name="loginStateWarning">Because you\'re not logged in, the score won\'t be saved. Please login
     at the profile tab to get your scores saved.</string>
+    <string name="highscores">Highscores</string>
+    <string name="rules_title">Rules of the game</string>
+    <string name="start_button">Start game</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="play_anyway_button">Play anyway</string>
+    <string name="login_error">Please enter valid credentials.</string>
+    <string name="register_button">Register</string>
+    <string name="login_button">Login</string>
+    <string name="login_state_logged_in">You\'re already logged in.</string>
+    <string name="log_out">Log out</string>
+    <string name="hint_username">Username</string>
+    <string name="error_length_username">Your username should have atleast one character!</string>
+    <string name="hint_email">Email</string>
+    <string name="error_length_email">Your email should have atleast 5 characters!</string>
+    <string name="hint_password">Password</string>
+    <string name="error_length_password">Your password should be atleast 6 characters</string>
+    <string name="hint_repeat_password">Repeat password</string>
+    <string name="error_matching_passwords">Your passwords don\'t match</string>
+    <string name="button_back">Back</string>
+    <string name="afterplay_feedback">Well played!</string>
+    <string name="title_score">Score</string>
+    <string name="no_value">0</string>
+    <string name="title_position">Position</string>
+    <string name="button_home">Home</string>
+    <string name="button_play_again">Play Again</string>
+    <string name="countdown_start">\'30</string>
+    <string name="description_brain_logo">Brain</string>
 
 
 </resources>

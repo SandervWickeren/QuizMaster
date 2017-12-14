@@ -14,13 +14,14 @@
         android:layout_weight="0.25"
         android:textSize="40sp"
         android:textColor="@color/colorLightBackground"
-        android:text="Well played!" />
+        android:text="@string/afterplay_feedback" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="10dp"
-                android:text="Score"
+                android:text="@string/title_score"
                 android:textColor="@color/colorLightBackground" />
 
             <TextView
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-18dp"
-                android:text="500"
+                android:text="@string/no_value"
                 android:textColor="@color/colorLightBackground"
                 android:textSize="60sp" />
         </LinearLayout>
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="10dp"
-                android:text="Position"
+                android:text="@string/title_position"
                 android:textColor="@color/colorLightBackground" />
 
             <TextView
@@ -68,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-18dp"
-                android:text="100"
+                android:text="@string/no_value"
                 android:textColor="@color/colorLightBackground"
                 android:textSize="60sp" />
         </LinearLayout>
@@ -84,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Highscores"
+            android:text="@string/highscores"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -125,7 +126,8 @@
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/unimportant_button"
-            android:text="Home"
+            android:text="@string/button_home"
+            style="?android:attr/buttonBarButtonStyle"
             android:textColor="@color/colorLightBackground" />
 
         <Button
@@ -135,7 +137,8 @@
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:background="@drawable/button"
-            android:text="Play Again"
+            android:text="@string/button_play_again"
+            style="?android:attr/buttonBarButtonStyle"
             android:textColor="@color/colorLightBackground" />
     </LinearLayout>
 </LinearLayout>

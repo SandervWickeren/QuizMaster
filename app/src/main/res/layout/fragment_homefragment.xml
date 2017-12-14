@@ -7,11 +7,11 @@
     android:background="@color/colorMainBackground">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/rulesTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Rules of the game"
+            android:text="@string/rules_title"
             android:textColor="@color/colorLightBackground"
             android:textSize="30sp" />
 
@@ -32,7 +32,7 @@
             android:background="@drawable/button"
             android:textColor="@color/colorLightBackground"
             android:layout_marginBottom="10dp"
-            android:text="Start game" />
+            android:text="@string/start_button" />
 
 </LinearLayout>
 

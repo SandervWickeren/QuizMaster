@@ -6,42 +6,34 @@
     android:background="@color/colorMainBackground"
     tools:context="com.sandervwickeren.quizmaster.Highscoresfragment">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/loadingHighscores"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:gravity="center" >
 
-        <RelativeLayout
-            android:id="@+id/loadingHighscores"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            android:gravity="center" >
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/highscoreTitle"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Highscores"
-            android:textColor="@color/colorLightBackground"
-            android:textSize="40sp" />
+            android:indeterminate="true" />
 
-        <ListView
-            android:id="@+id/highscoreList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </RelativeLayout>
 
-        </ListView>
+    <TextView
+        android:id="@+id/highscoreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/highscores"
+        android:textColor="@color/colorLightBackground"
+        android:textSize="40sp" />
 
-    </LinearLayout>
+    <ListView
+        android:id="@+id/highscoreList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 
 
 </LinearLayout>

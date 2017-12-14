@@ -8,21 +8,22 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/icon"
         android:layout_width="30dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
+        android:contentDescription="@string/description_brain_logo"
         app:srcCompat="@drawable/brain_logo" />
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:text="Quiz Master"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         android:textColor="@color/colorLightBackground"
-        android:id="@+id/mytext" />
+        android:id="@+id/title" />
 
     <TextView
         android:id="@+id/time"
@@ -33,7 +34,7 @@
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:text="'30" />
+        android:text="@string/countdown_start" />
 
 
 </LinearLayout>

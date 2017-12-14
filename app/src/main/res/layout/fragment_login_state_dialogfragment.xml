@@ -26,8 +26,9 @@
             android:layout_weight="1"
             android:layout_marginEnd="5dp"
             android:background="@drawable/button"
+            style="?android:attr/buttonBarButtonStyle"
             android:textColor="@color/colorLightBackground"
-            android:text="Cancel" />
+            android:text="@string/cancel_button" />
 
         <Button
             android:id="@+id/play"
@@ -36,7 +37,8 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:background="@drawable/unimportant_button"
+            style="?android:attr/buttonBarButtonStyle"
             android:textColor="@color/colorLightBackground"
-            android:text="Play anyway" />
+            android:text="@string/play_anyway_button" />
     </LinearLayout>
 </LinearLayout>

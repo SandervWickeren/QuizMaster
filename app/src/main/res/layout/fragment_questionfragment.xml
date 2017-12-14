@@ -13,17 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorLightBackground"
-        android:text="Question 3/8 - Sports" />
+        android:textColor="@color/colorLightBackground" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/question_card_background"
-
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="Which of these players won the NBA Rookie of the Year Award first?" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <ProgressBar
         android:id="@+id/timeLeftProgressbar"
@@ -39,8 +36,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/unimportant_button"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/colorLightBackground"
-        android:text="Button" />
+        android:textColor="@color/colorLightBackground" />
 
     <Button
         android:id="@+id/answer_b"
@@ -48,8 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/unimportant_button"
-        android:textColor="@color/colorLightBackground"
-        android:text="Button" />
+        android:textColor="@color/colorLightBackground" />
 
     <Button
         android:id="@+id/answer_c"
@@ -57,15 +52,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/unimportant_button"
-        android:textColor="@color/colorLightBackground"
-        android:text="Button" />
+        android:textColor="@color/colorLightBackground" />
 
     <Button
         android:id="@+id/answer_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/unimportant_button"
-        android:textColor="@color/colorLightBackground"
-        android:text="Button" />
+        android:textColor="@color/colorLightBackground" />
 
 </LinearLayout>

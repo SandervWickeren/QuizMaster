@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateNavigation (Fragment fragment) {
-        // Get fragment clas name
+        // Get fragment class name
         String name = fragment.getClass().getName();
 
         // Get view
