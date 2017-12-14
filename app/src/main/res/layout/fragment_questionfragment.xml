@@ -9,13 +9,29 @@
 
 
     <TextView
+        android:id="@+id/questionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorLightBackground"
+        android:text="Question 3/8 - Sports" />
+
+    <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/question_card_background"
-        android:layout_marginBottom="30dp"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:text="Which of these players won the NBA Rookie of the Year Award first?" />
+
+    <ProgressBar
+        android:id="@+id/timeLeftProgressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:max="30000" />
 
     <Button
         android:id="@+id/answer_a"

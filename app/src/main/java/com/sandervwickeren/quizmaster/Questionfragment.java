@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
@@ -47,7 +48,6 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_questionfragment, container, false);
-        setRetainInstance(true);
         return v;
     }
 
@@ -148,6 +148,7 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             // Get question and correct answer.
             String question = jsonObject.getString("question");
             String cor_answer = jsonObject.getString("correct_answer");
+            String category = jsonObject.getString("category");
 
             // Get wrong answers.
             JSONArray jsonArray = jsonObject.getJSONArray("incorrect_answers");
@@ -164,20 +165,25 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             // Save position of answer.
             cor_answer_pos = answers.indexOf(cor_answer);
 
+            // Create question info
+            String questInfo = String.valueOf(current + 1) + "/8 - " + category;
+
             // Call genLayout.
-            genLayout(answers, question);
+            genLayout(answers, question, questInfo);
 
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void genLayout(List<String> shuffled, String question) {
+    public void genLayout(List<String> shuffled, String question, String questInfo) {
 
         // Set question
         TextView question_text = getView().findViewById(R.id.question);
+        TextView questionInfo = getView().findViewById(R.id.questionInfo);
         String question_encoded = Html.fromHtml(question).toString();
         question_text.setText(question_encoded);
+        questionInfo.setText(questInfo);
 
         // Get button views
         Button answer_a = getView().findViewById(R.id.answer_a);
@@ -210,23 +216,29 @@ public class Questionfragment extends Fragment implements View.OnClickListener {
             // Replace original color for new question
             timerText.setTextColor(getResources().getColor(R.color.colorLightBackground));
 
+            // Get progressbar
+            final ProgressBar progressBar = getView().findViewById(R.id.timeLeftProgressbar);
+            progressBar.setProgress(0);
+
             // Create new timer and start
             timer = new CountDownTimer(30000, 1000) {
                 public void onTick(long millUntilFinished) {
                     secondsLeft = millUntilFinished / 1000;
                     String timeLeft = "'" + String.valueOf(secondsLeft);
                     timerText.setText(timeLeft);
+                    Integer progressleft = (int) millUntilFinished;
+                    progressBar.setProgress(30000 - progressleft);
 
                     // Change color if almost finished
                     if (millUntilFinished / 1000 < 10) {
-                        timerText.setTextColor(getResources().getColor(R.color.colorErrortext));
+                        timerText.setTextColor(getResources().getColor(R.color.colorEndingTime));
                     }
                 }
                 public void onFinish() {
 
                     // When finished it should show the correct answer
                     Button button = null;
-                    checkAnswer(button, 0);
+                    checkAnswer(button, 10);
                 }
             }.start();
 

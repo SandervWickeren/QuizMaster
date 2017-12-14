@@ -33,7 +33,7 @@
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:text="'60" />
+        android:text="'30" />
 
 
 </LinearLayout>

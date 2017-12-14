@@ -17,6 +17,8 @@
     <color name="colorHomeBackground">#0277BD</color>
     <color name="colorGreenButtonShadow">#3E8F41</color>
 
+    <color name="colorEndingTime">#621737</color>
+
 
     <color name="colorUnimportantButton">#455A64</color>
     <color name="colorUnimportantButtonShadow">#384952</color>

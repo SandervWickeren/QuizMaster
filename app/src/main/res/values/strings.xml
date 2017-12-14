@@ -7,5 +7,8 @@
     be aware; guessing wrong quickly will make it nearly impossible to reach a top position in the ranking.
     </string>
 
+    <string name="loginStateWarning">Because you\'re not logged in, the score won\'t be saved. Please login
+    at the profile tab to get your scores saved.</string>
+
 
 </resources>
