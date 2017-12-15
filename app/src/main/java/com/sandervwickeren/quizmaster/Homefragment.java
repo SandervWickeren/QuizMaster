@@ -28,7 +28,6 @@ public class Homefragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_homefragment, container, false);
 
-
         Button start = v.findViewById(R.id.start);
         start.setOnClickListener(new start_click());
 

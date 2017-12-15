@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
 
-        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) { //fragment not in back stack, create it.
+        // Fragment nog in backstack, create it.
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null) {
             FragmentTransaction ft = manager.beginTransaction();
             ft.replace(R.id.fragment_container, fragment, fragmentTag);
             ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_out, R.anim.fade_in);
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                             // Launch profile fragment
                             Profilefragment fragment = new Profilefragment();
                             replaceFragment(fragment);
-                            //updateUI(user);
+
                         } else {
                             // Check failure and give feedback
                             try {

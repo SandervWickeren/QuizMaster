@@ -1,9 +1,7 @@
 package com.sandervwickeren.quizmaster;
 
 /***********************************************************************
- Class to save name and email together. Used to save information into
- Firebase. Retrieved data 'll be converted back into an instance of
- this class.
+ Class to save name and email together.
 
  ***********************************************************************/
 public class User {

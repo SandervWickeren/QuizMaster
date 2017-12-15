@@ -175,7 +175,7 @@ public class Scorefragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("Database Error:", databaseError.toString());
             }
         });
     }
