@@ -7,6 +7,6 @@ Dit is een applicatie gemaakt in de slotweek van het vak "Native App studio". De
 - Maakt gebruik van Firebase
 
 # Afbeeldingen
-![board1](docs/app_board1.png)]
-![board2](docs/app_board2.png)]
+![board1](app_board1.png)
+![board2](app_board2.png)
 
