@@ -5,6 +5,7 @@ Dit is een applicatie gemaakt in de slotweek van het vak "Native App studio". De
 - Maakt gebruik van Volley
 - Maakt gebruik van Fragments en twee activities
 - Maakt gebruik van Firebase
+- [![BCH compliance](https://bettercodehub.com/edge/badge/SandervWickeren/QuizMaster?branch=master)](https://bettercodehub.com/)
 
 # Afbeeldingen
 ![board1](app_board1.png)
