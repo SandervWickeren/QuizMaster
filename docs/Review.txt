@@ -1,0 +1,20 @@
+Hele kleine dingentjes: 
+- homefragment regel 31 enter teveel
+- Main activity regel 83 staat comment erachter
+- Dode code regel 160 Mainactivty
+
+Verbeter punten:
+- Er zijn een aantal errors waar niks gedaan wordt, zoals de database error in de highscoresfragment en die in het scorefragment, misschien handig om deze te loggen o.i.d.
+- Functies zijn over het algemeen van goede lengte, maar een paar zijn wat lang. Bij bijv. Scorefragment, de get scores, zou je eventueel vanaf regel 159 kunnen splitsen en splisen maakt duidelijker waar de database gebruikt wordt en waar de score gezet wordt (overigens stoort het nu niet).
+- Soms zijn de headers wat lang, bij bijvoorbeeld de user.java.
+
+Goede punten:
+- Namen zijn goed en duidelijk.
+- Layout en formatting van de code zijn overzichtelijk wat het goed leesbaar maakt.
+- Comments zijn prima, precies toegevoegd waar nodig en niet teveel.
+- Duidelijke flow door code
+- Expressions zijn netjes
+- Over het algemeen is de code goed over de methodes en de activities verdeeld en zijn deze van goede lengte.
+
+Zou bijna overal 4/4 punten voor geven
+Peer review door: Marit Beerepoot
